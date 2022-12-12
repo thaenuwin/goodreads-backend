@@ -4,7 +4,7 @@ For building and running the application you need:
 
 - JDK 1.11
 - Maven 3
-- PostgreSQL
+- MySQL
 
 Update the database configurations on ``src/main/resources/application.properties`` 
 
