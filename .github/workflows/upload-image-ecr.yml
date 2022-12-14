@@ -1,4 +1,4 @@
-name: Deploy to EC2 instance for PIDS Java Apps
+name: Deploy to EC2 instance for Good Read Java Apps
 on:
   push:
     branches:
@@ -36,7 +36,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: pids-cms
+          ECR_REPOSITORY: googreads-backend
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # Build a docker container and

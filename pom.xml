@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.goodreads-backend</groupId>
-	<artifactId>api</artifactId>
+	<artifactId>googreads-backend-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>api</name>
 	<description>Good reads for spring boot</description>
 	<properties>
