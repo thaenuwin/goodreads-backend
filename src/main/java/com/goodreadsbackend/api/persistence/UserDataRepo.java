@@ -20,5 +20,6 @@ public
 interface UserDataRepo extends PagingAndSortingRepository<UserData,String> {
     
     UserData findByUserId(String userId);
-    
+
+    UserData findByEmail(String email);
 }

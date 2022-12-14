@@ -9,7 +9,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.util.Date;
 
 
@@ -17,17 +16,20 @@ import java.util.Date;
  *
  * @author thaenuwin
  */
-@Entity
+
 @Table(name = "usr_data")
 @Data
-public class UserData implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Builder(toBuilder = true)
+public class UserData  {
 
-    private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "usr_id_num")
+    @Id
     private String userId;
     
     @Basic(optional = false)
@@ -60,5 +62,5 @@ public class UserData implements Serializable {
     private String status;
 
 
-    
+
 }

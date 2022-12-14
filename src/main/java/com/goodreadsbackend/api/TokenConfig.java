@@ -69,10 +69,10 @@ public class TokenConfig {
                 accToken=((DefaultOAuth2AccessToken)accessToken);
                 
                 //1 hour to expire
-                accToken.setExpiration(new Date(now+(1000*60*3)));
+                accToken.setExpiration(new Date(now+(1000*60*60)));
                 
                 //2 hours to expire
-                accToken.setRefreshToken(new DefaultExpiringOAuth2RefreshToken(UUID.randomUUID().toString(),new Date(now+(1000*60*5))));
+                accToken.setRefreshToken(new DefaultExpiringOAuth2RefreshToken(UUID.randomUUID().toString(),new Date(now+(1000*60*60*2))));
                 
                 
                 return super.enhance(accessToken, authentication); 

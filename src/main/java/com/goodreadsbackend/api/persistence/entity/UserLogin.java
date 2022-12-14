@@ -5,7 +5,10 @@
  */
 package com.goodreadsbackend.api.persistence.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,9 +19,13 @@ import java.io.Serializable;
  *
  * @author thaenuwin
  */
-@Entity
+
 @Table(name = "usr_login")
 @Data
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class UserLogin implements Serializable {
 
     private static final long serialVersionUID = 1L;

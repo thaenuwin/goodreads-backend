@@ -105,6 +105,10 @@ class LoginService implements PerformLogin {
                 Map<?,?> procMap=userLoginResponse.getBody();
                 procMap.remove("expires_in");
                 accessToken = (String) procMap.get("access_token");
+                String userId = (String) procMap.get("username");
+
+
+                userLoginRepo.updateByUserId(accessToken,userId);
             }
             userLoginResponse.setHttpStatusCode(res.getStatusCode());
 

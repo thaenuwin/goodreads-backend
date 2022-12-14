@@ -16,8 +16,10 @@ import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
@@ -52,39 +54,44 @@ import static org.springframework.security.crypto.util.EncodingUtils.subArray;
 @Log4j2
 @EnableWebSecurity(debug = false)
 @AllArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String TAG = SecurityConfig.class.getName();
+    private static final String TAG = WebSecurityConfig.class.getName();
     public static final String DEFAULT_USER="ANONYMOUS";
     public static final String DEFAULT_ROLE="ROLE_ANONYMOUS";
 
+    private final JwtFilter jwtfilter ;
     @Autowired
     private DataSource dataSource;
 
-    private static final String[] SWAGGER_RESOURCE_URL = {
-            "/v2/api-docs",
-            "/configuration/ui",
-            "/configuration/**",
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/webjars/**",
-    };
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/login");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().formLogin().disable()
-                .addFilterBefore(createFilter(), AbstractPreAuthenticatedProcessingFilter.class)
 
-                .authenticationProvider(preAuthProvider())
-                .antMatcher("/**")
+
+        http.cors()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf().disable()
+                .httpBasic().disable()
+                .addFilterBefore(createFilter(), AbstractPreAuthenticatedProcessingFilter.class)
+                . authorizeRequests()
+                .antMatchers("/login")
+                .permitAll()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/alive", "/login").anonymous()
-                .antMatchers(SWAGGER_RESOURCE_URL).anonymous()
-                .anyRequest().authenticated().and()
-                .cors().and()
-                .sessionManagement().disable()
-                .csrf().disable();
+                .anyRequest()
+                .authenticated()
+                ;
     }
+
+
     @Bean
     public PreAuthenticatedAuthenticationProvider preAuthProvider() {
         PreAuthenticatedAuthenticationProvider provider
@@ -103,7 +110,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new UacUserDetailsService();
     }
 
-    @Override
+    @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         final String userQuery = "select usr_id_num,login_pwd,login_enable "
@@ -116,7 +123,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(
                         "SELECT usr_id_num, 'ROLE_ANONYMOUS' FROM usr_login WHERE usr_id_num=?");
 
+        auth.authenticationProvider(preAuthProvider());
     }
+
+
+
 
 
     @Bean
@@ -217,6 +228,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return encoder;
     }
+
     public static class UacUserDetailsService implements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
 
         @Override
