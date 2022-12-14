@@ -1,4 +1,4 @@
-FROM maven:3.5-jdk-11-alpine AS build
+FROM maven:3.6.3-jdk-11-slim AS build
 COPY googreads-backend-api /usr/src/app/googreads-backend-api
 COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
