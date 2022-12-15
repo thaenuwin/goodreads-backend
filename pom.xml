@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.goodreads-backend</groupId>
-	<artifactId>googreads-backend-api</artifactId>
+	<artifactId>goodreads-backend-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>api</name>
