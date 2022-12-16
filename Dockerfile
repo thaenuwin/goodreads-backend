@@ -1,5 +1,7 @@
 FROM maven:3.6.3-jdk-11-slim AS build
-COPY goodreads-backend ../goodreads-backend
+WORKDIR /app
+
+COPY goodreads-backend /app/goodreads-backend
 COPY pom.xml /app
 RUN mvn -f /app/pom.xml clean package
 
@@ -20,7 +22,7 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
     fc-cache -f
 
-WORKDIR $HOME
+
 
 COPY --from=build /app/goodreads-backend-api/target/goodreads-backend-api.jar ./app.jar
 
