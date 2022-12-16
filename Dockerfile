@@ -1,7 +1,7 @@
 FROM maven:3.6.3-jdk-11-slim AS build
-COPY goodreads-backend /usr/goodreads-backend
-COPY pom.xml /usr/app
-RUN mvn -f /usr/app/pom.xml clean package
+COPY goodreads-backend /app/goodreads-backend
+COPY pom.xml /app
+RUN mvn -f /app/pom.xml clean package
 
 FROM openjdk:11-jre-alpine AS goodreads-backend-api
 

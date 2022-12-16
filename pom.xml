@@ -71,11 +71,7 @@
         </dependency>
         -->
 		<!-- Postgre Driver -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<!--<version>42.2.12</version>-->
-		</dependency>
+
 
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
