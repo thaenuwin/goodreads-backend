@@ -1,9 +1,7 @@
 FROM maven:3.6.3-jdk-11-slim AS build
-WORKDIR /app
-
-COPY goodreads-backend /app/goodreads-backend
-COPY pom.xml /app
-RUN mvn -f /app/pom.xml clean package
+COPY ./goodreads-backend /usr/src/app/goodreads-backend
+COPY pom.xml /usr/src/app/goodreads-backend
+RUN mvn -f /usr/src/app/goodreads-backend/pom.xml clean package
 
 FROM openjdk:11-jre-alpine AS goodreads-backend-api
 
@@ -22,9 +20,9 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
     fc-cache -f
 
+WORKDIR $HOME
 
-
-COPY --from=build /app/goodreads-backend-api/target/goodreads-backend-api.jar ./app.jar
+COPY --from=build /usr/src/app/goodreads-backend-apiz/target/pids-cms-api.jar ./app.jar
 
 RUN chown -R app:app $HOME
 RUN chmod 750 $HOME
