@@ -2,15 +2,7 @@ FROM maven:3.6.3-jdk-11-slim AS build
 COPY ./ ./
 RUN mvn clean package
 
-ENV HOME=/opt/app/
-
-
-WORKDIR $HOME
-
-COPY --from=build /usr/src/app/goodreads-backend-api/target/goodreads-backend-api.jar ./app.jar
-
-RUN chown -R app:app $HOME
-RUN chmod 750 $HOME
+COPY --from=build target/goodreads-backend-api.jar ./app.jar
 
 USER app
 
