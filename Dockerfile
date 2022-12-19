@@ -3,7 +3,6 @@ COPY src /usr/src/app/goodreads-backend/src
 COPY pom.xml /usr/src/app/goodreads-backend
 RUN mvn -f /usr/src/app/goodreads-backend/pom.xml clean package
 
-FROM jdk:11-jre-alpine
 
 RUN apk add libjpeg-turbo=1.5.3-r6 libtasn1=4.14-r0 musl=1.1.20-r6 libx11=1.6.12-r0 freetype=2.9.1-r3
 
