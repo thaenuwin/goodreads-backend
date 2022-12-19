@@ -8,7 +8,7 @@ ENV HOME=/opt/app/
 
 WORKDIR $HOME
 
-COPY --from=build /usr/src/app/goodreads-backend-apiz/target/pids-cms-api.jar ./app.jar
+COPY --from=build /usr/src/app/goodreads-backend-apiz/target/goodreads-backend-api.jar ./app.jar
 
 RUN chown -R app:app $HOME
 RUN chmod 750 $HOME
