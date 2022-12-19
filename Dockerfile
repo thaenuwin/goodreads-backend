@@ -5,9 +5,6 @@ RUN mvn -f /usr/src/app/goodreads-backend/pom.xml clean package
 
 ENV HOME=/opt/app/
 
-RUN addgroup -g 1000 -S app && \
-    adduser -u 1000 -S app -G app
-
 
 WORKDIR $HOME
 
