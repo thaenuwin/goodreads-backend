@@ -3,6 +3,7 @@ package com.goodreadsbackend.api.persistence;
 import com.goodreadsbackend.api.opr.BookCreation;
 import com.goodreadsbackend.api.opr.UserCreation;
 import com.goodreadsbackend.api.persistence.entity.Book;
+import com.goodreadsbackend.api.util.DateUtil;
 import com.goodreadsbackend.api.util.ValidatorUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,9 @@ public class BookCreationImpl implements BookCreation {
         Book createbook= Book.builder()
                 .bookTitle(cmd.getBookTitle())
                 .summary(cmd.getSummary())
-                .rlsDate(cmd.getRlsDate())
-                .bookPrice(cmd.getBookPrice())
+                .rlsDate(DateUtil.formatDate(cmd.getRlsDate()))
+                .bookPrice(Integer.parseInt(cmd.getBookPrice()))
                 .bookImg(cmd.getBookImage()).build();
-        System.out.println(createbook);
         bookRepo.save(createbook);
 
         return CreateBookResponse.SUCCESS;

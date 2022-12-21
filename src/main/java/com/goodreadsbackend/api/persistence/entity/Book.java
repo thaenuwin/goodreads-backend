@@ -11,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -39,13 +41,14 @@ public class Book {
     private byte[] bookImg;
 
     @Column(name = "book_price")
-    private String bookPrice;
+    private Integer bookPrice;
 
     @Column(name = "summary")
+    @Size(min = 1, max = 5000)
     private String summary;
 
     @Column(name = "rls_dttm")
-    private String rlsDate;
+    private Date rlsDate;
 
 }
 

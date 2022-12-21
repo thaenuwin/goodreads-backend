@@ -7,4 +7,4 @@ COPY --from=build target/goodreads-backend-api.jar ./app.jar
 USER app
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "./app.jar", "--spring.config.location=file:/tmp/efs/fs1/java-config/cms/application.properties"]
+ENTRYPOINT ["java", "-jar", "./app.jar"]
