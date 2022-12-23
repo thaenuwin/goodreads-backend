@@ -1,6 +1,8 @@
 package com.goodreadsbackend.api.opr;
 
+import com.goodreadsbackend.api.util.ValidDateTime;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -23,6 +25,7 @@ public interface BookCreation {
         private String summary;
 
         @NotEmpty
+//        @ValidDateTime
         private String rlsDate;
     }
     public enum CreateBookResponse {

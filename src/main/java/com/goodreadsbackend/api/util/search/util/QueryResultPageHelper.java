@@ -1,9 +1,6 @@
 package com.goodreadsbackend.api.util.search.util;
 
-import com.goodreadsbackend.api.domain.BookQueryParam;
-import com.goodreadsbackend.api.persistence.entity.QBook;
 import com.goodreadsbackend.api.util.CommonLogger;
-import com.goodreadsbackend.api.util.search.QueryBook;
 import com.goodreadsbackend.api.util.search.comp.*;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;

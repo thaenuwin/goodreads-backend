@@ -5,6 +5,9 @@
  */
 package com.goodreadsbackend.api.util;
 
+import com.goodreadsbackend.api.util.errors.InputValidationException;
+import javassist.tools.web.BadHttpRequest;
+
 import javax.validation.*;
 import java.util.Set;
 

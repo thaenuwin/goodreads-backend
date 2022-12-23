@@ -1,6 +1,5 @@
 package com.goodreadsbackend.api.controller;
 
-import com.goodreadsbackend.api.domain.BookQueryParam;
 import com.goodreadsbackend.api.opr.BookCreation;
 import com.goodreadsbackend.api.util.ResponseMessageUtil;
 import com.goodreadsbackend.api.util.search.QueryBook;
@@ -8,7 +7,6 @@ import com.goodreadsbackend.api.util.search.comp.QueryParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +24,7 @@ public class BookController {
 
     @PostMapping(path = "/create-book")
     public ResponseEntity<?> perform(@RequestHeader(value = "Authorization") String authorization,
-                                     @RequestParam(value = "file") MultipartFile file, @ModelAttribute BookCreation.BookCreationCmd cmd) throws IOException {
+                                     @RequestPart(value = "file") MultipartFile file, @ModelAttribute BookCreation.BookCreationCmd cmd) throws IOException {
         cmd.setBookImage(file.getBytes());
         BookCreation.CreateBookResponse statusCode= bookCreation.bookCreate(cmd);
         if(BookCreation.CreateBookResponse.SUCCESS.equals(statusCode)){

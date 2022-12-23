@@ -64,11 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers("/login");
-    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -82,8 +78,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .addFilterBefore(createFilter(), AbstractPreAuthenticatedProcessingFilter.class)
                 . authorizeRequests()
-                .antMatchers("/login")
-                .permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest()
